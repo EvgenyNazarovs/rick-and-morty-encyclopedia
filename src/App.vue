@@ -2,7 +2,13 @@
   <div>
     <h1>Rick and Morty Encyclopedia</h1>
     <div class="main-container">
-      <CharacterList :characters='characters'></CharacterList>
+      <label for="character-select">Select a Character</label>
+      <select id="character-select" v-model="selectedCharacter">
+        <option disabled value="">Select a character</option>
+        <option v-for="character in characters" :value="character">{{character.name}}</option>
+      </select>
+      
+      <CharacterItemDetail v-if="selectedCharacter" :character="selectedCharacter"></CharacterItemDetail>
     </div>
   </div>
 
@@ -11,6 +17,7 @@
 <script>
 import CharacterList from './components/CharacterList.vue'
 import {eventBus} from './main.js'
+import CharacterItemDetail from './components/CharacterItemDetail.vue'
 
 export default {
   name: 'App',
@@ -27,10 +34,12 @@ export default {
 
     eventBus.$on('character-selected', (character) => {
       this.selectedCharacter = character;
+      console.log('character:', this.selectedCharacter);
     })
   },
   components: {
-    CharacterList
+    CharacterList,
+    CharacterItemDetail
   }
 }
 </script>
