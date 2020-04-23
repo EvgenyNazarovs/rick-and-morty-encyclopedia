@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <li v-on:click="handleClick">{{ character.name }}</li>
+    <li v-on:click="onClick">{{ character.name }}</li>
   </div>
 
 </template>
@@ -13,7 +13,7 @@ export default {
   name: 'CharacterListItem',
   props: ['character'],
   methods: {
-    handleClick(){
+    onClick(){
       eventBus.$emit('character-selected', this.character)
     }
   }
